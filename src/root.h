@@ -9,6 +9,7 @@ class Root : public Controller
 {
     Q_OBJECT
     C_NAMESPACE("")
+
 public:
     explicit Root(QObject *parent = nullptr);
     ~Root();

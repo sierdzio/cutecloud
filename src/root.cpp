@@ -12,7 +12,7 @@ Root::~Root()
 
 void Root::index(Context *c)
 {
-    c->response()->body() = "Welcome to Cutelyst!";
+    c->response()->body() = "Welcome to " AppName ", v" AppVersion;
 }
 
 void Root::defaultPage(Context *c)

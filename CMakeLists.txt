@@ -1,9 +1,15 @@
-project(cutecloud)
+include(version.cmake)
 
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 if (POLICY CMP0043)
   cmake_policy(SET CMP0043 NEW)
 endif()
+
+project(cutecloud
+  VERSION ${VERSION}
+  DESCRIPTION "Cutelyst-based cloud solution"
+  LANGUAGES CXX
+)
 
 if(WIN32)
   if(MSVC)
@@ -23,5 +29,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 file(GLOB_RECURSE TEMPLATES_SRC root/*)
+
+set(OTHER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 
 add_subdirectory(src)
