@@ -1,4 +1,10 @@
-file(GLOB_RECURSE cutecloud_SRCS *.cpp *.h)
+set(cutecloud_SRCS root.h root.cpp cutecloud.h cutecloud.cpp
+  utils/tags.h
+  configs/cloudconfig.h configs/cloudconfig.cpp
+)
+
+add_subdirectory(milo/mconfig)
+add_subdirectory(milo/mlog)
 
 set(cutecloud_SRCS
   ${cutecloud_SRCS}
@@ -7,7 +13,15 @@ set(cutecloud_SRCS
 )
 
 # Create the application
-add_library(cutecloud SHARED ${cutecloud_SRCS})
+add_library(cutecloud SHARED ${cutecloud_SRCS}
+  $<TARGET_OBJECTS:mlog>
+  $<TARGET_OBJECTS:mconfig>
+)
+
+target_include_directories(cutecloud PUBLIC
+  $<TARGET_PROPERTY:mlog,INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:mconfig,INCLUDE_DIRECTORIES>
+)
 
 # Mark all warnings as errors
 target_compile_options(cutecloud PRIVATE -Werror -fPIC)

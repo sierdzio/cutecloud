@@ -12,7 +12,9 @@ Root::~Root()
 
 void Root::index(Context *c)
 {
-    c->response()->body() = "Welcome to " AppName ", v" AppVersion;
+    c->response()->body() = "Welcome to " AppName ", v" AppVersion "<br/>"
+                            "Cloud storage is located in: "
+        + mConfig.storagePath.toLatin1();
 }
 
 void Root::defaultPage(Context *c)
