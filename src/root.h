@@ -1,8 +1,6 @@
 #ifndef ROOT_H
 #define ROOT_H
 
-#include "configs/cloudconfig.h"
-
 #include <Cutelyst/Controller>
 
 using namespace Cutelyst;
@@ -25,8 +23,6 @@ public:
 private:
     C_ATTR(End, :ActionClass("RenderView"))
     void End(Context *c) { Q_UNUSED(c); }
-
-    CloudConfig mConfig;
 };
 
 #endif //ROOT_H

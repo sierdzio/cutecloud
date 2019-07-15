@@ -13,6 +13,9 @@ public:
 
     QString storagePath = QStandardPaths::writableLocation(
         QStandardPaths::HomeLocation) + "/" + QString(AppName).toLower();
+
+    //! Simple dirtiness switch. TODO: refactor and make it more proper
+    bool dirty = false;
 };
 
 #endif // CLOUDCONFIG_H

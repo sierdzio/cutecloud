@@ -10,5 +10,6 @@ CloudConfig::CloudConfig() : MConfig(Tags::cloudConfig)
 
 CloudConfig::~CloudConfig()
 {
-    save();
+    if (dirty)
+        save();
 }

@@ -11,11 +11,18 @@ This prototype implementation aims to create a Nextcloud-like cloud solution usi
 * (if possible) compatibility with Nextcloud ("drop in replacement")
 * (if possible) compatibility with Nextcloud clients (desktop/ mobile)
 
+# Ideas
+
+* use Qt for Web Assembly to have only one interface to implement? Perhaps web,
+  mobile and desktop clients could share single UI code? Sounds crazy, but might
+  be worth a try
+
 # Thanks
 
 * [Cutelyst](cutelyst.org) is used as base framework for this web page
 * [Grantlee](https://github.com/steveire/grantlee) is used as templating engine
-* [Qt](www.qt.io) is the C++ framework in which this project, Cutelys and Grantlee are all written
+* [Qt](www.qt.io) is the C++ framework in which this project, Cutelys and
+  Grantlee are all written
 
 # Develop
 
