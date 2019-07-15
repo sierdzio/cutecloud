@@ -65,6 +65,11 @@ MConfig::MConfig(const QByteArray &groupName) : MBaseConfig(groupName)
     // Nothing
 }
 
+MConfig::~MConfig()
+{
+    // Nothing
+}
+
 #ifdef MCRYPTO_LIB
 MConfig::MConfig(const QByteArray &groupName, const QByteArray &passphrase)
     : MBaseConfig(groupName, passphrase)

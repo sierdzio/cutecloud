@@ -1,6 +1,6 @@
 set(VERSION 0.0.1)
-set(APP_NAME "Cutecloud")
-set(COMPANY_NAME "none")
+set(APP_NAME "cutecloud")
+set(COMPANY_NAME "Cutecloud")
 set(COMPANY_DOMAIN "sierdzio.com")
 string(TIMESTAMP BUILD_DATE "%Y-%m-%d" UTC)
 

@@ -10,6 +10,8 @@ CloudConfig::CloudConfig() : MConfig(Tags::cloudConfig)
 
 CloudConfig::~CloudConfig()
 {
+    // TODO: save if there is no config file (so that default settings are
+    // stored and editable)
     if (dirty)
         save();
 }

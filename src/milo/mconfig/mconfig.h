@@ -36,6 +36,8 @@ class MConfig : public MBaseConfig
     MConfig(const QByteArray &groupName, const QByteArray &passphrase);
 #endif
 
+    virtual ~MConfig();
+
  protected:
     QList<QByteArray> valueNames() const final;
     QVariant value(const QByteArray &name) const final;

@@ -4,7 +4,22 @@
 <body>
 Welcome to {{ AppName }}, v{{ AppVersion}}<br/>
 <br/>
-Cloud storage is located in: {{ StoragePath }}
+Cloud storage is located in: {{ StoragePath }}<br/>
+<br/>
+Directories:<br/>
+<ul>
+{% for directory in directories %}
+  <li>{{ directory }}</li>
+{% endfor %}
+</ul>
+<br/>
+Files:<br/>
+<ul>
+{% for file in files %}
+  <li>{{ file }}</li>
+{% endfor %}
+</ul>
+<br/>
 </body>
 </html>
 
