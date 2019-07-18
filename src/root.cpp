@@ -53,6 +53,11 @@ void Root::defaultPage(Context *c)
              << "exists:" << fileInfo.exists();
 
     if (fileInfo.exists()) {
+        if (fileInfo.isDir()) {
+            index(c);
+            return;
+        }
+
         // Path exists, allowing download
         Response *res = c->res();
         QFile *file = new QFile(filePath);
