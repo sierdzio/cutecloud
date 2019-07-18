@@ -36,7 +36,7 @@ Set `Cutelyst2Qt5_DIR` to where `Cutelyst2Qt5Config.cmake` is located.
 
 In `<root>`, run:
 
-    cutelyst2 --server -p 3000 --app-file build/src/libcutecloud.so
+    cutelyst2 --server -p 3000 --app-file build/src/libcutecloud.so --restart
 
 Then open:
 
