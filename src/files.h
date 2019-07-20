@@ -13,7 +13,7 @@ public:
     explicit Files(QObject *parent = nullptr);
     ~Files();
 
-    C_ATTR(index, :Path :AutoArgs)
+    C_ATTR(index, :Path :Args)
     void index(Context *c);
 
 private:

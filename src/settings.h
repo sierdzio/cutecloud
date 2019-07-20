@@ -8,6 +8,7 @@ using namespace Cutelyst;
 class Settings : public Controller
 {
     Q_OBJECT
+
 public:
     explicit Settings(QObject *parent = nullptr);
     ~Settings();

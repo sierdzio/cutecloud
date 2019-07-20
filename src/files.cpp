@@ -23,7 +23,7 @@ Files::~Files()
 
 void Files::index(Context *c)
 {
-    qDebug() << "THIS IS FILES";
+    qDebug() << "THIS IS FILES" << c->req()->arguments();
 
     // Check if path denotes a known file in cloud storage
     const QString fullPath(c->req()->path());
