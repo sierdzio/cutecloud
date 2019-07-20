@@ -17,6 +17,9 @@ public:
     C_ATTR(index, :Path :AutoArgs)
     void index(Context *c);
 
+    C_ATTR(files, :Path("files"))
+    void files(Context *c);
+
     C_ATTR(defaultPage, :Path)
     void defaultPage(Context *c);
 

@@ -1,6 +1,7 @@
 #include "root.h"
 
 #include "configs/cloudconfig.h"
+#include "utils/tags.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -22,24 +23,31 @@ Root::~Root()
 
 void Root::index(Context *c)
 {
+    qDebug() << "THIS IS INDEX";
+
     const CloudConfig config;
-    c->setStash("AppName", AppName);
-    c->setStash("AppVersion", AppVersion);
-    c->setStash("StoragePath", config.storagePath);
+    c->setStash(Tags::appName, AppName);
+    c->setStash(Tags::appVersion, AppVersion);
+    c->setStash(Tags::storagePath, config.storagePath);
 
     const QDir dir(config.storagePath);
     const QStringList directories(dir.entryList(
         QDir::Dirs | QDir::NoDotAndDotDot));
     const QStringList files(dir.entryList(QDir::Files));
 
-    c->setStash("files", files);
-    c->setStash("directories", directories);
+    c->setStash(Tags::files, files);
+    c->setStash(Tags::directories, directories);
 }
 
-void Root::defaultPage(Context *c)
+void Root::files(Context *c)
 {
+    qDebug() << "THIS IS FILES";
+
     // Check if path denotes a known file in cloud storage
-    const QString path(c->req()->path());
+    const QString fullPath(c->req()->path());
+    const QString methodName("files/");
+    const QString path(fullPath.mid(fullPath.indexOf(methodName)
+                                    + methodName.size()));
 
     const CloudConfig config;
     const QDir dir(config.storagePath);
@@ -54,7 +62,15 @@ void Root::defaultPage(Context *c)
 
     if (fileInfo.exists()) {
         if (fileInfo.isDir()) {
-            index(c);
+            qDebug() << "LANUCHING TEMPLATE" << path;
+            const QDir dir(filePath);
+            const QStringList directories(dir.entryList(
+                QDir::Dirs | QDir::NoDotAndDotDot));
+            const QStringList files(dir.entryList(QDir::Files));
+
+            c->setStash(Tags::path, path);
+            c->setStash(Tags::files, files);
+            c->setStash(Tags::directories, directories);
             return;
         }
 
@@ -92,7 +108,10 @@ void Root::defaultPage(Context *c)
         qWarning() << "Could not serve" << path << file->errorString();
         return;
     }
+}
 
+void Root::defaultPage(Context *c)
+{
     // Display HTTP 404 page
     c->response()->body() = "Page not found!";
     c->response()->setStatus(404);
