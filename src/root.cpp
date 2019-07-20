@@ -20,11 +20,10 @@ Root::~Root()
 
 void Root::index(Context *c)
 {
-    qDebug() << "THIS IS INDEX";
+    //qDebug() << "THIS IS INDEX";
 
     const CloudConfig config;
     c->setStash(Tags::appName, AppName);
-    c->setStash(Tags::appVersion, AppVersion);
     c->setStash(Tags::storagePath, config.storagePath);
 
     const QDir dir(config.storagePath);
@@ -39,7 +38,7 @@ void Root::index(Context *c)
 void Root::defaultPage(Context *c)
 {
     // Display HTTP 404 page
-    c->response()->body() = "Page not found!";
+    c->response()->body() = "404: Page not found!";
     c->response()->setStatus(404);
 }
 
