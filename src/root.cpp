@@ -46,27 +46,30 @@ void Root::files(Context *c)
     // Check if path denotes a known file in cloud storage
     const QString fullPath(c->req()->path());
     const QString methodName("files/");
-    const QString path(fullPath.mid(fullPath.indexOf(methodName)
-                                    + methodName.size()));
+    const QString dirtyPath(fullPath.mid(fullPath.indexOf(methodName)
+                                         + methodName.size()));
+    // Trim trailing slashes
+    const QString path(trimTrailingSlashes(dirtyPath));
 
     const CloudConfig config;
     const QDir dir(config.storagePath);
 
-    const QString filePath(dir.absolutePath() + QStringLiteral("/")
+    const QString filePathDirty(dir.absolutePath() + QStringLiteral("/")
                            + path);
 
-    const QFileInfo fileInfo(filePath);
+    const QFileInfo fileInfo(filePathDirty);
+    const QString filePath(fileInfo.canonicalFilePath());
 
     qDebug() << "Path is:" << path << "file path:" << filePath
              << "exists:" << fileInfo.exists();
 
     if (fileInfo.exists()) {
         if (fileInfo.isDir()) {
-            qDebug() << "LANUCHING TEMPLATE" << path;
             const QDir dir(filePath);
             const QStringList directories(dir.entryList(
                 QDir::Dirs | QDir::NoDotAndDotDot));
             const QStringList files(dir.entryList(QDir::Files));
+            qDebug() << "LANUCHING TEMPLATE" << path << files;
 
             c->setStash(Tags::path, path);
             c->setStash(Tags::files, files);
@@ -115,5 +118,24 @@ void Root::defaultPage(Context *c)
     // Display HTTP 404 page
     c->response()->body() = "Page not found!";
     c->response()->setStatus(404);
+}
+
+QString Root::trimTrailingSlashes(const QString &path) const
+{
+    QString result(path);
+    forever {
+        if (result == QStringLiteral("/") or result.isEmpty()) {
+            return result;
+        }
+
+        const QChar last(result.at(result.size() - 1));
+        if (last == '/') {
+            result.chop(1);
+        } else {
+            break;
+        }
+    }
+
+    return result;
 }
 

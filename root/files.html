@@ -1,21 +1,29 @@
 <html>
 <head>
-<title>Cutecloud - {{ path }}</title>
+<title>Cutecloud{% if path %} - {{ path }}{% endif %}</title>
 </head>
 <body>
-Path: {{ path }}<br/>
+Path: {{ path }}/<br/>
+{% if path %}<a href="/files/{{ path }}/..">&larr; Back</a><br/>{% endif %}
 <br/>
+
 Directories:<br/>
 <ul>
 {% for directory in directories %}
-  <li><a href="files/{{ directory }}">{{ directory }}</a></li>
+  <li><a href="/files/{% if path %}{{ path }}/{% endif %}{{ directory }}">{{ directory }}</a></li>
+{% empty %}
+    <li>empty</li>
 {% endfor %}
 </ul>
 <br/>
+
 Files:<br/>
 <ul>
 {% for file in files %}
-  <li><a href="files/{{ file }}" download="{{ file }}">{{ file }}</a></li>
+  <li><a href="/files/{% if path %}{{ path }}/{% endif %}{{ file }}"
+      download="{{ file }}">{{ file }}</a></li>
+{% empty %}
+  <li>empty</li>
 {% endfor %}
 </ul>
 <br/>

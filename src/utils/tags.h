@@ -15,7 +15,7 @@ const QByteArray storagePath("StoragePath");
 const QByteArray files("files");
 const QByteArray directories("directories");
 const QByteArray path("path");
-//const QByteArray ("");
+const QByteArray up("..");
 //const QByteArray ("");
 
 }
