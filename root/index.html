@@ -5,17 +5,10 @@
 <body>
 Welcome to {{ AppName }}!<br/>
 <br/>
-Directories:<br/>
-<ul>
-{% for directory in directories %}
-  <li><a href="files/{{ directory }}">{{ directory }}</a></li>
-{% endfor %}
-</ul>
-<br/>
 Files:<br/>
 <ul>
 {% for file in files %}
-  <li><a href="files/{{ file }}" download="{{ file }}">{{ file }}</a></li>
+  <li><a href="files/{{ file }}">{{ file }}</a></li>
 {% endfor %}
 </ul>
 <br/>

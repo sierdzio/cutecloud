@@ -16,6 +16,10 @@ This prototype implementation aims to create a Nextcloud-like cloud solution usi
 * use Qt for Web Assembly to have only one interface to implement? Perhaps web,
   mobile and desktop clients could share single UI code? Sounds crazy, but might
   be worth a try
+* add "hardening" compilation flags, which should allow user to compile all
+  configuration, template files into the Cutelyst app - so that it is harder
+  to tampler with it
+* add code obfuscation step to make tamplering even harder
 
 # Thanks
 

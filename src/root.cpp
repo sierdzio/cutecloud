@@ -27,12 +27,11 @@ void Root::index(Context *c)
     c->setStash(Tags::storagePath, config.storagePath);
 
     const QDir dir(config.storagePath);
-    const QStringList directories(dir.entryList(
-        QDir::Dirs | QDir::NoDotAndDotDot));
-    const QStringList files(dir.entryList(QDir::Files));
+    const QStringList files(dir.entryList(
+        QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot,
+        QDir::SortFlag::DirsFirst));
 
     c->setStash(Tags::files, files);
-    c->setStash(Tags::directories, directories);
 }
 
 void Root::defaultPage(Context *c)

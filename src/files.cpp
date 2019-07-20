@@ -50,14 +50,13 @@ void Files::index(Context *c)
     if (fileInfo.exists()) {
         if (fileInfo.isDir()) {
             const QDir dir(filePath);
-            const QStringList directories(dir.entryList(
-                QDir::Dirs | QDir::NoDotAndDotDot));
-            const QStringList files(dir.entryList(QDir::Files));
+            const QStringList files(dir.entryList(
+                QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot,
+                QDir::SortFlag::DirsFirst));
             qDebug() << "LANUCHING TEMPLATE" << path << files;
 
             c->setStash(Tags::path, path);
             c->setStash(Tags::files, files);
-            c->setStash(Tags::directories, directories);
             return;
         }
 

@@ -14,6 +14,8 @@ public:
     QString storagePath = QStandardPaths::writableLocation(
         QStandardPaths::HomeLocation) + "/" + QString(AppName).toLower();
 
+    QString appName = AppName;
+
     //! Simple dirtiness switch. TODO: refactor and make it more proper
     bool dirty = false;
 };

@@ -5,6 +5,7 @@
 CloudConfig::CloudConfig() : MConfig(Tags::cloudConfig)
 {
     CONFIG_VALUE(storagePath, QMetaType::QString);
+    CONFIG_VALUE(appName, QMetaType::QString);
     load();
 }
 
