@@ -1,6 +1,9 @@
-set(cutecloud_SRCS root.h root.cpp cutecloud.h cutecloud.cpp
+set(cutecloud_SRCS cutecloud.h cutecloud.cpp
   utils/tags.h
   configs/cloudconfig.h configs/cloudconfig.cpp
+  root.h root.cpp
+  settings.h settings.cpp
+  files.h files.cpp
 )
 
 add_subdirectory(milo/mconfig)
@@ -42,9 +45,9 @@ target_compile_features(cutecloud PRIVATE cxx_std_14)
 # Link to Cutelyst
 target_link_libraries(cutecloud
   Cutelyst::Core
-  Cutelyst::StaticSimple
   Cutelyst::View::Grantlee
   Qt5::Core
   Qt5::Network
 )
+# Cutelyst::StaticSimple
 

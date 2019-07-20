@@ -26,8 +26,6 @@ public:
 private:
     C_ATTR(End, :ActionClass("RenderView"))
     void End(Context *c) { Q_UNUSED(c); }
-
-    QString trimTrailingSlashes(const QString &path) const;
 };
 
 #endif //ROOT_H

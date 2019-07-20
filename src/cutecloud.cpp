@@ -1,8 +1,10 @@
 #include "cutecloud.h"
 
 #include "root.h"
+#include "settings.h"
+#include "files.h"
 
-#include <Cutelyst/Plugins/StaticSimple/staticsimple.h>
+//#include <Cutelyst/Plugins/StaticSimple/staticsimple.h>
 #include <Cutelyst/Plugins/View/Grantlee/grantleeview.h>
 #include <QCoreApplication>
 
@@ -24,7 +26,10 @@ cutecloud::~cutecloud()
 bool cutecloud::init()
 {
     new Root(this);
-    new StaticSimple(this);
+    new Settings(this);
+    new Files(this);
+
+    //new StaticSimple(this);
     auto view = new GrantleeView(this);
     view->setIncludePaths({ pathTo("root"), pathTo("root/static") });
     //view->setWrapper("root.html");
