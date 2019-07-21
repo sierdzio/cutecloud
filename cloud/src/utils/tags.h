@@ -8,8 +8,8 @@ namespace Tags {
 const QByteArray cloudConfig("core");
 
 // Stash
-const QByteArray appName("AppName");
-const QByteArray appVersion("AppVersion");
+const QByteArray cloudAppName("CloudAppName");
+const QByteArray cloudAppVersion("CloudAppVersion");
 const QByteArray storagePath("StoragePath");
 
 

@@ -15,7 +15,7 @@ Api::~Api()
 void Api::index(Context *c)
 {
     c->setStash(Tags::title, tr("API"));
-    c->setStash(Tags::appVersion, AppVersion);
+    c->setStash(Tags::cloudAppVersion, CloudAppVersion);
     const QStringList endpoints = {
         "fileList"
     };

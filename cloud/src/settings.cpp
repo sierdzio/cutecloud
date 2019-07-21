@@ -19,8 +19,8 @@ void Settings::index(Context *c)
     /*const*/ CloudConfig config;
     //config.dirty = true;
     c->setStash(Tags::title, tr("Settings"));
-    c->setStash(Tags::appName, config.appName);
-    c->setStash(Tags::appVersion, AppVersion);
+    c->setStash(Tags::cloudAppName, config.appName);
+    c->setStash(Tags::cloudAppVersion, CloudAppVersion);
     c->setStash(Tags::storagePath, config.storagePath);
 }
 

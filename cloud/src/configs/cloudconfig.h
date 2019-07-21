@@ -12,9 +12,9 @@ public:
     ~CloudConfig();
 
     QString storagePath = QStandardPaths::writableLocation(
-        QStandardPaths::HomeLocation) + "/" + QString(AppName).toLower();
+        QStandardPaths::HomeLocation) + "/" + QString(CloudAppName).toLower();
 
-    QString appName = AppName;
+    QString appName = CloudAppName;
 
     //! Simple dirtiness switch. TODO: refactor and make it more proper
     bool dirty = false;

@@ -8,6 +8,7 @@ using namespace Cutelyst;
 class Api : public Controller
 {
     Q_OBJECT
+
 public:
     explicit Api(QObject *parent = nullptr);
     ~Api();

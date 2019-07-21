@@ -1,5 +1,5 @@
-set(VERSION 0.0.1)
-set(APP_NAME "cutecloud")
+set(CLOUD_VERSION 0.0.1)
+set(CLOUD_APP_NAME "cutecloud")
 set(COMPANY_NAME "Cutecloud")
 set(COMPANY_DOMAIN "sierdzio.com")
 string(TIMESTAMP BUILD_DATE "%Y-%m-%d" UTC)
@@ -19,8 +19,8 @@ set_property(GLOBAL APPEND
   "${CMAKE_SOURCE_DIR}/.git/index")
 
 add_compile_definitions(
-  AppName="${APP_NAME}"
-  AppVersion="${VERSION}"
+  CloudAppName="${CLOUD_APP_NAME}"
+  CloudAppVersion="${CLOUD_VERSION}"
   CompanyName="${COMPANY_NAME}"
   CompanyDomain="${COMPANY_DOMAIN}"
   BuildDate="${BUILD_DATE}"
@@ -28,8 +28,8 @@ add_compile_definitions(
   )
 
 message(
-  "  App name: " ${APP_NAME} "\n"
-  "  Version: " ${VERSION} "\n"
+  "  Cloud app name: " ${CLOUD_APP_NAME} "\n"
+  "  Cloud version: " ${CLOUD_VERSION} "\n"
   "  Company: " ${COMPANY_NAME} "\n"
   "  Domain: " ${COMPANY_DOMAIN} "\n"
   "  Build date: " ${BUILD_DATE} "\n"

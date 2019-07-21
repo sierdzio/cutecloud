@@ -24,7 +24,7 @@ void Root::index(Context *c)
 
     const CloudConfig config;
     c->setStash(Tags::title, tr("Home"));
-    c->setStash(Tags::appName, AppName);
+    c->setStash(Tags::cloudAppName, CloudAppName);
     c->setStash(Tags::storagePath, config.storagePath);
 
     const QDir dir(config.storagePath);

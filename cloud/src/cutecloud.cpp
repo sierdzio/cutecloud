@@ -14,10 +14,10 @@ using namespace Cutelyst;
 cutecloud::cutecloud(QObject *parent) : Application(parent)
 {
     auto app = QCoreApplication::instance();
-    app->setApplicationName(AppName);
+    app->setApplicationName(CloudAppName);
     app->setOrganizationName(CompanyName);
     app->setOrganizationDomain(CompanyDomain);
-    app->setApplicationVersion(AppVersion);
+    app->setApplicationVersion(CloudAppVersion);
 }
 
 cutecloud::~cutecloud()

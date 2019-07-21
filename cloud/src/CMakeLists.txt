@@ -9,6 +9,7 @@ set(cutecloud_SRCS cutecloud.h cutecloud.cpp
 
 add_subdirectory(milo/mconfig)
 add_subdirectory(milo/mlog)
+add_subdirectory(../../api api)
 
 set(cutecloud_SRCS
   ${cutecloud_SRCS}
@@ -20,11 +21,13 @@ set(cutecloud_SRCS
 add_library(cutecloud SHARED ${cutecloud_SRCS}
   $<TARGET_OBJECTS:mlog>
   $<TARGET_OBJECTS:mconfig>
+  $<TARGET_OBJECTS:api>
 )
 
 target_include_directories(cutecloud PUBLIC
   $<TARGET_PROPERTY:mlog,INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:mconfig,INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:api,INCLUDE_DIRECTORIES>
 )
 
 # Mark all warnings as errors
