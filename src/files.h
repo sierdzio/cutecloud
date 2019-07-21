@@ -16,6 +16,9 @@ public:
     C_ATTR(index, :Path :Args)
     void index(Context *c);
 
+    C_ATTR(upload, :Local :Args)
+    void upload(Context *c);
+
 private:
     QString trimTrailingSlashes(const QString &path) const;
 };

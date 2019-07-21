@@ -96,6 +96,12 @@ void Files::index(Context *c)
     }
 }
 
+void Files::upload(Context *c)
+{
+    qDebug() << "UPLOAD!" << c->request()->path() << c->request()->arguments();
+    qDebug() << "datas:" << c->request()->uploads();
+}
+
 QString Files::trimTrailingSlashes(const QString &path) const
 {
     QString result(path);
