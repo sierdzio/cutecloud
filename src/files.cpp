@@ -11,6 +11,8 @@
 
 #include <QDebug>
 
+#include <Cutelyst/Upload>
+
 using namespace Cutelyst;
 
 Files::Files(QObject *parent) : Controller(parent)
@@ -98,8 +100,39 @@ void Files::index(Context *c)
 
 void Files::upload(Context *c)
 {
-    qDebug() << "UPLOAD!" << c->request()->path() << c->request()->arguments();
+    qDebug() << "UPLOAD!" << c->request()->path()
+             << c->request()->arguments()
+             << c->request()->isPost();
     qDebug() << "datas:" << c->request()->uploads();
+
+    if (c->request()->isPost()) {
+        const auto fileInfo = c->request()->upload("fileToUpload");
+        const auto fileData = c->request()->upload("submit");
+
+        if (fileInfo and fileData) {
+            const CloudConfig config;
+            const QDir dir(config.storagePath);
+
+            // Determine exact save dir:
+            const QString url(c->request()->path());
+            const QString prefix(QStringLiteral("/files/upload/"));
+            const QString relative(url.mid(prefix.length() - 1));
+
+            const QString filePath(dir.absolutePath() + QStringLiteral("/")
+                                   + relative + QStringLiteral("/")
+                                   + fileInfo->filename());
+
+            qDebug() << "Saving to:" << filePath
+                     << fileInfo->size()
+                     << fileInfo->save(filePath);
+
+            c->forward("index");
+        }
+    } else {
+        // This request is to display contents of "upload" file or directory,
+        // not upload action
+        c->forward("index");
+    }
 }
 
 QString Files::trimTrailingSlashes(const QString &path) const
