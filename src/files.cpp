@@ -35,6 +35,7 @@ void Files::index(Context *c)
     const CloudConfig config;
     const QDir dir(config.storagePath);
 
+    // TODO: add user ID between storage path and file path
     const QString filePathDirty(dir.absolutePath() + sep + path);
 
     const QFileInfo fileInfo(filePathDirty);
@@ -49,8 +50,9 @@ void Files::index(Context *c)
             const QStringList files(dir.entryList(
                 QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot,
                 QDir::SortFlag::DirsFirst));
-            qDebug() << "LANUCHING TEMPLATE" << path << files;
+            qDebug() << "LAUNCHING TEMPLATE" << path << files;
 
+            c->setStash(Tags::title, tr("Files: %1").arg(path));
             c->setStash(Tags::path, path);
             c->setStash(Tags::files, files);
             return;

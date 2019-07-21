@@ -23,6 +23,7 @@ void Root::index(Context *c)
     //qDebug() << "THIS IS INDEX";
 
     const CloudConfig config;
+    c->setStash(Tags::title, tr("Home"));
     c->setStash(Tags::appName, AppName);
     c->setStash(Tags::storagePath, config.storagePath);
 

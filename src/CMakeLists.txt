@@ -4,6 +4,7 @@ set(cutecloud_SRCS cutecloud.h cutecloud.cpp
   root.h root.cpp
   settings.h settings.cpp
   files.h files.cpp
+  api.h api.cpp
 )
 
 add_subdirectory(milo/mconfig)

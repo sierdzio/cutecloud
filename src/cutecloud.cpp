@@ -3,6 +3,7 @@
 #include "root.h"
 #include "settings.h"
 #include "files.h"
+#include "api.h"
 
 //#include <Cutelyst/Plugins/StaticSimple/staticsimple.h>
 #include <Cutelyst/Plugins/View/Grantlee/grantleeview.h>
@@ -28,11 +29,13 @@ bool cutecloud::init()
     new Root(this);
     new Settings(this);
     new Files(this);
+    new Api(this);
 
     //new StaticSimple(this);
     auto view = new GrantleeView(this);
-    view->setIncludePaths({ pathTo("root"), pathTo("root/static") });
-    //view->setWrapper("root.html");
+    view->setIncludePaths({ pathTo("root")/*, pathTo("root/static")*/ });
+    view->setWrapper("wrapper.html");
+
     return true;
 }
 

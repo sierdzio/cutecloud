@@ -1,0 +1,9 @@
+Here is a list of API endpoints in v{{ AppVersion }}:<br/>
+<ul>
+{% for endpoint in endpoints %}
+  <li><a href="/api/{{ endpoint }}">{{ endpoint }}</a></li>
+{% empty %}
+  <li>empty</li>
+{% endfor %}
+</ul>
+<br/>
