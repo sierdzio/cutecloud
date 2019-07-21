@@ -21,6 +21,7 @@ public:
 
 private:
     QString trimTrailingSlashes(const QString &path) const;
+    const QLatin1String sep = QLatin1String("/");
 };
 
 #endif //FILES_H

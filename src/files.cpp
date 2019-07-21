@@ -25,23 +25,17 @@ Files::~Files()
 
 void Files::index(Context *c)
 {
-    //const QStringList arguments(c->request()->arguments());
-    //const QString path(arguments.isEmpty()? QString() : arguments.at(0));
-    qDebug() << "THIS IS FILES" /*<< arguments << c->request()->path()*/;
+    qDebug() << "THIS IS FILES";
 
     // Check if path denotes a known file in cloud storage
-    const QString fullPath(c->req()->path());
-    const QString methodName("files/");
-    const QString dirtyPath(fullPath.mid(fullPath.indexOf(methodName)
-                                         + methodName.size()));
+    const QString dirtyPath(c->request()->arguments().join(sep));
     // Trim trailing slashes
     const QString path(trimTrailingSlashes(dirtyPath));
 
     const CloudConfig config;
     const QDir dir(config.storagePath);
 
-    const QString filePathDirty(dir.absolutePath() + QStringLiteral("/")
-                                + path);
+    const QString filePathDirty(dir.absolutePath() + sep + path);
 
     const QFileInfo fileInfo(filePathDirty);
     const QString filePath(fileInfo.canonicalFilePath());
@@ -100,10 +94,7 @@ void Files::index(Context *c)
 
 void Files::upload(Context *c)
 {
-    qDebug() << "UPLOAD!" << c->request()->path()
-             << c->request()->arguments()
-             << c->request()->isPost();
-    qDebug() << "datas:" << c->request()->uploads();
+    qDebug() << "UPLOAD!";
 
     if (c->request()->isPost()) {
         const auto fileInfo = c->request()->upload("fileToUpload");
@@ -114,24 +105,24 @@ void Files::upload(Context *c)
             const QDir dir(config.storagePath);
 
             // Determine exact save dir:
-            const QString url(c->request()->path());
-            const QString prefix(QStringLiteral("/files/upload/"));
-            const QString relative(url.mid(prefix.length() - 1));
+            const QString relative(c->request()->arguments().join(sep));
 
-            const QString filePath(dir.absolutePath() + QStringLiteral("/")
-                                   + relative + QStringLiteral("/")
+            const QString filePath(dir.absolutePath() + sep
+                                   + relative + sep
                                    + fileInfo->filename());
 
             qDebug() << "Saving to:" << filePath
                      << fileInfo->size()
                      << fileInfo->save(filePath);
 
-            c->forward("index");
+            index(c);
+            return;
         }
     } else {
         // This request is to display contents of "upload" file or directory,
         // not upload action
-        c->forward("index");
+        index(c);
+        return;
     }
 }
 
@@ -139,7 +130,7 @@ QString Files::trimTrailingSlashes(const QString &path) const
 {
     QString result(path);
     forever {
-        if (result == QStringLiteral("/") or result.isEmpty()) {
+        if (result == sep or result.isEmpty()) {
             return result;
         }
 
