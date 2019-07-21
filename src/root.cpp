@@ -38,7 +38,7 @@ void Root::index(Context *c)
 void Root::defaultPage(Context *c)
 {
     // Display HTTP 404 page
-    c->response()->body() = "404: Page not found!";
+    c->response()->body() = "404: Page has not been found!";
     c->response()->setStatus(404);
 }
 
