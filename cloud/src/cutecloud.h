@@ -9,6 +9,7 @@ class cutecloud : public Application
 {
     Q_OBJECT
     CUTELYST_APPLICATION(IID "cutecloud")
+
 public:
     Q_INVOKABLE explicit cutecloud(QObject *parent = nullptr);
     ~cutecloud();

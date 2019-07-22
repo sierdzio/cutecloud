@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-FileList::FileList(QObject *parent) : QObject(parent) {
+FileList::FileList() : Endpoint() {
     qDebug() << "FileList!";
 }
 

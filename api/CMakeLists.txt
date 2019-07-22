@@ -26,7 +26,9 @@ set(CMAKE_AUTOUIC ON)
 # Create code for Qt Resource Files
 set(CMAKE_AUTORCC ON)
 
-set(SOURCES filelist.h filelist.cpp)
+set(SOURCES apicore.h apicore.cpp
+    endpoint.h endpoint.cpp
+    filelist.h filelist.cpp)
 
 set(OTHER_FILES README.md)
 

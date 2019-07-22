@@ -1,14 +1,13 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-#include <QObject>
+#include "apicore.h"
+#include "endpoint.h"
 
-class FileList : public QObject
+class FileList : public Endpoint
 {
-    Q_OBJECT
-
 public:
-    FileList(QObject *parent = nullptr);
+    FileList();
     ~FileList();
 };
 
