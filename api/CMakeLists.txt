@@ -27,8 +27,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCES apicore.h apicore.cpp
-    endpoint.h endpoint.cpp
-    filelist.h filelist.cpp)
+    endpointdto.h endpointdto.cpp
+    filelistdto.h filelistdto.cpp)
 
 set(OTHER_FILES README.md)
 

@@ -19,7 +19,7 @@ void Api::index(Context *c)
 {
     c->setStash(Tags::title, tr("API"));
     c->setStash(Tags::cloudAppVersion, CloudAppVersion);
-    const QStringList endpoints(ApiCore::endpoints());
+    const QStringList endpoints(ApiCore::allEndpoints());
     c->setStash(Tags::endpoints, endpoints);
 }
 
