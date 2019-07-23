@@ -15,6 +15,9 @@ public:
 
     C_ATTR(index, :Path :AutoArgs)
     void index(Context *c);
+
+    C_ATTR(filelist, :Path("filelist") :AutoArgs)
+    void fileList(Context *c);
 };
 
 #endif //API_H

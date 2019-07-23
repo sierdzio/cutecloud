@@ -14,12 +14,12 @@ QStringList ApiCore::allEndpoints()
     return mAllEndpoints;
 }
 
-QStringList ApiCore::endpoints()
+QStringList ApiCore::endpoints() const
 {
     return activeEndpoints();
 }
 
-QStringList ApiCore::activeEndpoints()
+QStringList ApiCore::activeEndpoints() const
 {
     // TODO: check active endpoints in EndpointConfig.
     return mActiveEndpoints;

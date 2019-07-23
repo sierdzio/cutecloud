@@ -4,8 +4,6 @@
 #include <QStringList>
 #include <QHash>
 
-extern QStringList allEndpoints;
-
 class ApiCore
 {
 public:
@@ -18,13 +16,13 @@ public:
      */
     static QStringList allEndpoints();
 
-    static QStringList endpoints();
-    static QStringList activeEndpoints();
+    QStringList endpoints() const;
+    QStringList activeEndpoints() const;
 
 
 private:
     static const QStringList mAllEndpoints;
-    static const QStringList mActiveEndpoints;
+    const QStringList mActiveEndpoints;
 };
 
 #endif // APICORE_H

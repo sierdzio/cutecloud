@@ -4,6 +4,7 @@
 
 // TODO: use api/ dir here
 #include "apicore.h"
+#include "filelistdto.h"
 
 using namespace Cutelyst;
 
@@ -23,3 +24,14 @@ void Api::index(Context *c)
     c->setStash(Tags::endpoints, endpoints);
 }
 
+void Api::fileList(Context *c)
+{
+    const FileListDto dto;
+
+    //c->setStash(Tags::title, tr("FileList"));
+    //c->setStash(Tags::cloudAppVersion, CloudAppVersion);
+    //const QStringList endpoints(ApiCore::allEndpoints());
+    //c->setStash(Tags::endpoints, endpoints);
+
+    c->response()->body() = dto.toJson().toJson();
+}

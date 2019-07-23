@@ -1,4 +1,4 @@
-#include "endpoint.h"
+#include "endpointdto.h"
 
 EndpointDto::~EndpointDto()
 {

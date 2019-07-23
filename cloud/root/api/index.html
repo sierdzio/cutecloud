@@ -1,7 +1,7 @@
 Here is a list of API endpoints in v{{ CloudAppVersion }}:<br/>
 <ul>
 {% for endpoint in endpoints %}
-  <li><a href="/api/{{ endpoint }}">{{ endpoint }}</a></li>
+  <li><a href="/api/{% filter lower %}{{ endpoint }}{% endfilter %}">{{ endpoint }}</a></li>
 {% empty %}
   <li>empty</li>
 {% endfor %}

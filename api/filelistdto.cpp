@@ -1,4 +1,4 @@
-#include "filelist.h"
+#include "filelistdto.h"
 #include "apicore.h"
 
 #include <QJsonObject>

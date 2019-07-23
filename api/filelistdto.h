@@ -1,6 +1,6 @@
 #pragma once
 
-#include "endpoint.h"
+#include "endpointdto.h"
 
 class FileListDto : public EndpointDto
 {
