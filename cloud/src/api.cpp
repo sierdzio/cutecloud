@@ -24,14 +24,23 @@ void Api::index(Context *c)
     c->setStash(Tags::endpoints, endpoints);
 }
 
-void Api::fileList(Context *c)
+void Api::filelist(Context *c)
 {
+    const auto &params = c->request()->queryParams();
     const FileListDto dto;
 
-    //c->setStash(Tags::title, tr("FileList"));
-    //c->setStash(Tags::cloudAppVersion, CloudAppVersion);
-    //const QStringList endpoints(ApiCore::allEndpoints());
-    //c->setStash(Tags::endpoints, endpoints);
+    qDebug() << "Params:" << params;
 
-    c->response()->body() = dto.toJson().toJson();
+    if (params.contains(Tags::json)) {
+        c->response()->body() = dto.toJson().toJson();
+    } else if (params.contains(Tags::cbor)) {
+        qDebug() << "Returning CBOR" << dto.toCbor().toCborValue().toCbor();
+        c->response()->body() = dto.toCbor().toCborValue().toCbor();
+    } else {
+        c->setStash("template", "api/endpoint.html");
+        c->setStash(Tags::title, dto.name());
+        c->setStash(Tags::endpoint, dto.name());
+        c->setStash(Tags::description, dto.description());
+        c->setStash(Tags::parameters, "nothing yet...");
+    }
 }

@@ -37,5 +37,9 @@ QJsonDocument FileListDto::toJson() const
 
 QCborMap FileListDto::toCbor() const
 {
-    return QCborMap();
+    QCborMap result;
+    result.insert(Fields::User, QStringLiteral("Testing Tom"));
+    result.insert(Fields::Directory, QStringLiteral("/home/somebody"));
+    result.insert(Fields::Files, "/home/somebody");
+    return result;
 }

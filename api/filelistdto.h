@@ -5,6 +5,12 @@
 class FileListDto : public EndpointDto
 {
 public:
+    enum Fields {
+        User,
+        Directory,
+        Files
+    };
+
     FileListDto();
     virtual ~FileListDto();
 
