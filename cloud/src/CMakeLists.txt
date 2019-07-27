@@ -7,10 +7,6 @@ set(cutecloud_SRCS cutecloud.h cutecloud.cpp
   api.h api.cpp
 )
 
-add_subdirectory(milo/mconfig)
-add_subdirectory(milo/mlog)
-add_subdirectory(../../api api)
-
 set(cutecloud_SRCS
   ${cutecloud_SRCS}
   ${TEMPLATES_SRC}

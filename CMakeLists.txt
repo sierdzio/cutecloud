@@ -8,5 +8,11 @@ project(cutecloud_root
   LANGUAGES CXX
 )
 
-#add_subdirectory(api)
+# Support libraries and projects:
+add_subdirectory(milo/mconfig)
+add_subdirectory(milo/mlog)
+add_subdirectory(api)
+
+# Main apps and libs:
 add_subdirectory(cloud)
+add_subdirectory(client)
