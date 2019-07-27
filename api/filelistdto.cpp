@@ -2,11 +2,17 @@
 #include "apicore.h"
 
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QCborArray>
+#include <QCborValue>
 
 #include <QDebug>
 
-FileListDto::FileListDto() : EndpointDto() {
-    qDebug() << "FileList!";
+FileListDto::FileListDto(const QString &user, const QString &directory,
+                         const QFileInfoList &files)
+    : EndpointDto(), mUser(user), mDirectory(directory), mFiles(files)
+{
+    qDebug() << "FileList!" << user << directory << files;
 }
 
 FileListDto::~FileListDto()
@@ -26,20 +32,80 @@ QString FileListDto::description() const
 
 QJsonDocument FileListDto::toJson() const
 {
+    // TODO: automatic conversion
+
     QJsonDocument result;
-    const QJsonObject object({
-        { "name", name() },
-        { "description", description() },
+    // TODO: use Q_ENUM to automatically translate enum name to string
+    QJsonObject object({
+        { "user", mUser },
+        { "directory", mDirectory },
     });
+
+    QJsonArray files;
+    for (const auto &info : qAsConst(mFiles)) {
+        const QJsonObject file({
+            { "name", info.fileName() },
+            { "created", info.birthTime().toSecsSinceEpoch() },
+            { "modified", info.lastModified().toSecsSinceEpoch() },
+            { "size", info.size() },
+            { "isDirectory", info.isDir() },
+        });
+        files.append(file);
+    }
+    object.insert("files", files);
+
     result.setObject(object);
     return result;
 }
 
 QCborMap FileListDto::toCbor() const
 {
+    // TODO: automatic conversion
+
     QCborMap result;
-    result.insert(Fields::User, QStringLiteral("Testing Tom"));
-    result.insert(Fields::Directory, QStringLiteral("/home/somebody"));
-    result.insert(Fields::Files, "/home/somebody");
+    result.insert(Fields::User, mUser);
+    result.insert(Fields::Directory, mDirectory);
+
+    QCborArray files;
+    for (const auto &info : qAsConst(mFiles)) {
+        QCborMap file;
+        file.insert(FileInfo::Name, info.fileName());
+        file.insert(FileInfo::Created, info.birthTime().toSecsSinceEpoch());
+        file.insert(FileInfo::Modified, info.lastModified().toSecsSinceEpoch());
+        file.insert(FileInfo::Size, info.size());
+        file.insert(FileInfo::IsDirectory, info.isDir());
+        files.append(file);
+    }
+    result.insert(Fields::Files, files);
     return result;
+}
+
+QString FileListDto::user() const
+{
+    return mUser;
+}
+
+void FileListDto::setUser(const QString &user)
+{
+    mUser = user;
+}
+
+QString FileListDto::directory() const
+{
+    return mDirectory;
+}
+
+void FileListDto::setDirectory(const QString &directory)
+{
+    mDirectory = directory;
+}
+
+QFileInfoList FileListDto::files() const
+{
+    return mFiles;
+}
+
+void FileListDto::setFiles(const QFileInfoList &files)
+{
+    mFiles = files;
 }
