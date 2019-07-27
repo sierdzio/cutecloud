@@ -27,14 +27,26 @@ set(CMAKE_AUTOMOC ON)
 # to always look for includes there:
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+# Create code from a list of Qt designer ui files
+set(CMAKE_AUTOUIC ON)
+
+# Create code for Qt Resource Files
+set(CMAKE_AUTORCC ON)
+
 set(OTHER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 
 set(client_SRCS
-  main.cpp
+  src/main.cpp
+  src/mainwindow.h src/mainwindow.cpp
+)
+
+set(client_UIS
+  src/mainwindow.ui
 )
 
 set(client_SRCS
   ${client_SRCS}
+  ${client_UIS}
   ${OTHER_FILES}
 )
 

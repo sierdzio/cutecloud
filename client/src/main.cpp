@@ -3,6 +3,8 @@
 
 #include "mlog.h"
 
+#include "mainwindow.h"
+
 Q_LOGGING_CATEGORY(coreMain, "core.main")
 
 int main(int argc, char *argv[]) {
@@ -20,6 +22,9 @@ int main(int argc, char *argv[]) {
                      << "\nVersion:" << app.applicationVersion()
                      << "\nSHA:" << GitCommit
                      << "\nBuild date:" << BuildDate;
+
+    MainWindow w;
+    w.show();
 
     return app.exec();
 }
