@@ -47,7 +47,6 @@ void Api::filelist(Context *c)
     if (params.contains(Tags::json)) {
         c->response()->body() = dto.toJson().toJson();
     } else if (params.contains(Tags::cbor)) {
-        qDebug() << "Returning CBOR" << dto.toCbor().toCborValue().toCbor();
         c->response()->body() = dto.toCbor().toCborValue().toCbor();
     } else {
         c->setStash("template", "api/endpoint.html");

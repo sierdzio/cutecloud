@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
                                           ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->treeWidget->setColumnCount(5);
+    //ui->treeWidget->header().set
 
     connect(&mManager, &QNetworkAccessManager::finished,
             this, &MainWindow::replyFinished);
@@ -28,5 +30,26 @@ void MainWindow::replyFinished(QNetworkReply *reply)
     if (reply == nullptr)
         return;
 
-    qDebug() << "REPLY:" << reply->readAll();
+    const QByteArray data(reply->readAll());
+    const FileListDto dto(FileListDto::fromCbor(data));
+
+    qDebug() << "REPLY:" << data;
+
+    ui->userLabel->setText(dto.user());
+    ui->directoryLabel->setText(dto.directory());
+
+    const QString format(QStringLiteral("yyyy-MM-dd HH:mm"));
+
+    QList<QTreeWidgetItem *> items;
+    const auto &files = dto.files();
+    for (const auto &file : files) {
+        const QStringList values = {
+            file.name, file.created.toString(format),
+            file.modified.toString(format), QString::number(file.size),
+            QString::number(file.isDirectory)
+        };
+        items.append(new QTreeWidgetItem((QTreeWidget*) nullptr, values, 0));
+    }
+
+    ui->treeWidget->insertTopLevelItems(0, items);
 }
