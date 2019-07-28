@@ -30,6 +30,23 @@ QString FileListDto::description() const
                           "the cloud");
 }
 
+auto FileListDto::fromJson(const QByteArray &data)
+{
+    QJsonParseError error;
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    const QJsonObject main(doc.object());
+    const QJsonArray files(main.value("files").toArray());
+
+    QFileInfoList infos;
+//    for (const auto &value : files) {
+//        infos.append(QFileInfo())
+//    }
+
+    return FileListDto(main.value("user").toString(),
+                       main.value("directory").toString(),
+                       infos);
+}
+
 QJsonDocument FileListDto::toJson() const
 {
     // TODO: automatic conversion
@@ -56,6 +73,11 @@ QJsonDocument FileListDto::toJson() const
 
     result.setObject(object);
     return result;
+}
+
+auto FileListDto::fromCbor(const QByteArray &data)
+{
+
 }
 
 QCborMap FileListDto::toCbor() const
@@ -108,4 +130,13 @@ QFileInfoList FileListDto::files() const
 void FileListDto::setFiles(const QFileInfoList &files)
 {
     mFiles = files;
+}
+
+FileInfo::FileInfo(const QFileInfo &info)
+{
+    name = info.fileName();
+    created = info.birthTime();
+    modified = info.lastModified();
+    size = info.size();
+    isDirectory = info.isDir();
 }

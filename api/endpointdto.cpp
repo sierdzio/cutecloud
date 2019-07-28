@@ -19,6 +19,11 @@ QJsonDocument EndpointDto::toJson() const
     return QJsonDocument();
 }
 
+auto EndpointDto::fromJson()
+{
+    return EndpointDto();
+}
+
 QCborMap EndpointDto::toCbor() const
 {
     return QCborMap();

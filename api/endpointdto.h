@@ -21,7 +21,8 @@ public:
     virtual QJsonDocument toJson() const;
     // TODO: use templates?
     //static Endpoint fromJson();
-    //static auto fromJson();
+
+    static auto fromJson();
 
     virtual QCborMap toCbor() const;
     // TODO: use templates?

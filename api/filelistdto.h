@@ -5,29 +5,36 @@
 #include <QVector>
 #include <QFileInfoList>
 
-//class FileInfo {
-
-//};
-
-//using FileInfoList = QVector<FileInfo>;
-
-class FileListDto : public EndpointDto
-{
+class FileInfo {
 public:
-    // TODO: automatic field registration!
-    enum Fields {
-        User,
-        Directory,
-        Files
-    };
-
-    enum FileInfo {
+    enum Field {
         Name,
         Created,
         Modified,
         Size,
         IsDirectory
     };
+
+    FileInfo(const QFileInfo &info);
+
+    QString name;
+    QDateTime created;
+    QDateTime modified;
+    qint64 size;
+    bool isDirectory;
+};
+
+using FileInfoList = QVector<FileInfo>;
+
+class FileListDto : public EndpointDto
+{
+public:
+    // TODO: automatic field registration! (use Q_ENUM, too)
+    enum Fields {
+        User,
+        Directory,
+        Files
+    };    
 
     FileListDto(const QString &user, const QString &directory,
                 const QFileInfoList &files);
@@ -36,7 +43,10 @@ public:
     QString name() const final;
     QString description() const final;
 
+    static auto fromJson(const QByteArray &data);
     QJsonDocument toJson() const final;
+
+    static auto fromCbor(const QByteArray &data);
     QCborMap toCbor() const final;
 
     QString user() const;
