@@ -34,10 +34,11 @@ void MainWindow::replyFinished(QNetworkReply *reply)
     const QByteArray data(reply->readAll());
     mModel->setFileList(FileListDto::fromCbor(data));
 
-    qDebug() << "REPLY:" << data;
+    //qDebug() << "REPLY:" << data;
 
     ui->userLabel->setText(mModel->fileList().user());
     ui->directoryLabel->setText(mModel->fileList().directory());
+    ui->backPushButton->setEnabled(!ui->directoryLabel->text().isEmpty());
 }
 
 void MainWindow::entryDoubleClicked(const QModelIndex &index)
@@ -58,4 +59,14 @@ void MainWindow::on_connectPushButton_clicked()
     mManager.get(QNetworkRequest(
         QUrl(ui->serverLineEdit->text() + sep + mModel->fileList().path()
              + proto)));
+}
+
+void MainWindow::on_backPushButton_clicked()
+{
+    const QStringList path(ui->directoryLabel->text().split(sep));
+    const QString backPath(path.mid(0, path.length() - 1).join(sep));
+    const QString url(ui->serverLineEdit->text() + sep + mModel->fileList().path()
+                      + sep + backPath + proto);
+    qDebug() << "Back URL" << url << "initial path:" << path;
+    mManager.get(QNetworkRequest(QUrl(url)));
 }

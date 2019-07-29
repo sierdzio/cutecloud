@@ -25,6 +25,8 @@ private slots:
     void entryDoubleClicked(const QModelIndex &index);
     void on_connectPushButton_clicked();
 
+    void on_backPushButton_clicked();
+
 private:
     const QString sep = QStringLiteral("/");
     const QString proto = QStringLiteral("?cbor=1");
