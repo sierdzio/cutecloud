@@ -21,8 +21,9 @@ public:
 private slots:
     void replyFinished(QNetworkReply *reply);
 
+    void on_connectPushButton_clicked();
+
 private:
-    const QString mServer = QStringLiteral("http://localhost:3000");
     const QString sep = QStringLiteral("/");
 
     Ui::MainWindow *ui;

@@ -11,13 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->treeWidget->setColumnCount(5);
-    //ui->treeWidget->header().set
+    ui->treeWidget->setHeaderLabels({
+        tr("Name"), tr("Created"), tr("Modified"), tr("Size"), tr("Type")
+    });
 
     connect(&mManager, &QNetworkAccessManager::finished,
             this, &MainWindow::replyFinished);
-
-    mManager.get(QNetworkRequest(
-        QUrl(mServer + sep + QStringLiteral("api/filelist?cbor=1"))));
 }
 
 MainWindow::~MainWindow()
@@ -46,10 +45,18 @@ void MainWindow::replyFinished(QNetworkReply *reply)
         const QStringList values = {
             file.name, file.created.toString(format),
             file.modified.toString(format), QString::number(file.size),
-            QString::number(file.isDirectory)
+            (file.isDirectory ? QStringLiteral("Dir") : QStringLiteral("File"))
         };
-        items.append(new QTreeWidgetItem((QTreeWidget*) nullptr, values, 0));
+        items.append(new QTreeWidgetItem(static_cast<QTreeWidget*>(nullptr),
+                                         values, 0));
     }
 
     ui->treeWidget->insertTopLevelItems(0, items);
+}
+
+void MainWindow::on_connectPushButton_clicked()
+{
+    mManager.get(QNetworkRequest(
+        QUrl(ui->serverLineEdit->text() + sep + QStringLiteral("api/filelist?cbor=1"))));
+
 }
