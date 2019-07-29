@@ -13,6 +13,7 @@ class FileListModel : public QAbstractItemModel
 public:
     explicit FileListModel(QObject *parent = nullptr);
 
+    FileInfo fileInfo(const int row) const;
     FileListDto fileList() const;
     void setFileList(const FileListDto &dto);
 
@@ -20,6 +21,7 @@ public:
     QModelIndex parent(const QModelIndex &child) const final;
     int rowCount(const QModelIndex &parent) const final;
     int columnCount(const QModelIndex &parent) const final;
+    bool hasChildren(const QModelIndex &parent) const final;
     QVariant data(const QModelIndex &index, int role) const final;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const final;
 

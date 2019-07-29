@@ -22,10 +22,12 @@ public:
 
 private slots:
     void replyFinished(QNetworkReply *reply);
+    void entryDoubleClicked(const QModelIndex &index);
     void on_connectPushButton_clicked();
 
 private:
     const QString sep = QStringLiteral("/");
+    const QString proto = QStringLiteral("?cbor=1");
 
     Ui::MainWindow *ui;
     QPointer<FileListModel> mModel;

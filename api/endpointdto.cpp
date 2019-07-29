@@ -9,6 +9,11 @@ QString EndpointDto::name() const
     return QStringLiteral("Endpoint");
 }
 
+QString EndpointDto::path() const
+{
+    return QStringLiteral("api");
+}
+
 QString EndpointDto::description() const
 {
     return QStringLiteral("Base class for all endpoints. Does not do anything");

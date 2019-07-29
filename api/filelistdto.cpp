@@ -67,6 +67,11 @@ QString FileListDto::name() const
     return QStringLiteral("FileList");
 }
 
+QString FileListDto::path() const
+{
+    return EndpointDto::path() + QStringLiteral("/filelist");
+}
+
 QString FileListDto::description() const
 {
     return QStringLiteral("Returns a list of files in a particular folder in "
