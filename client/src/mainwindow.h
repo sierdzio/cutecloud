@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QPointer>
 #include <QMainWindow>
 #include <QNetworkAccessManager>
 
@@ -9,6 +10,7 @@ class MainWindow;
 }
 
 class QNetworkReply;
+class FileListModel;
 
 class MainWindow : public QMainWindow
 {
@@ -20,13 +22,14 @@ public:
 
 private slots:
     void replyFinished(QNetworkReply *reply);
-
     void on_connectPushButton_clicked();
 
 private:
     const QString sep = QStringLiteral("/");
 
     Ui::MainWindow *ui;
+    QPointer<FileListModel> mModel;
+
     QNetworkAccessManager mManager;
 };
 

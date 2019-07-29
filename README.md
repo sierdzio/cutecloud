@@ -21,6 +21,10 @@ This prototype implementation aims to create a Nextcloud-like cloud solution usi
   to tampler with it
 * add code obfuscation step to make tamplering even harder
 
+TODO:
+
+* too much to list ;-)
+
 # Thanks
 
 * [Cutelyst](cutelyst.org) is used as base framework for this web page

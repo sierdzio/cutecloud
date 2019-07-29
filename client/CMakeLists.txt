@@ -38,6 +38,7 @@ set(OTHER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 set(client_SRCS
   src/main.cpp
   src/mainwindow.h src/mainwindow.cpp
+  src/models/filelistmodel.h src/models/filelistmodel.cpp
 )
 
 set(client_UIS

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "filelistdto.h"
+#include "models/filelistmodel.h"
 
 #include <QNetworkReply>
 
@@ -10,10 +10,13 @@ MainWindow::MainWindow(QWidget *parent) :
                                           ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->treeWidget->setColumnCount(5);
-    ui->treeWidget->setHeaderLabels({
-        tr("Name"), tr("Created"), tr("Modified"), tr("Size"), tr("Type")
-    });
+
+    mModel = new FileListModel(this);
+
+    ui->treeView->setModel(mModel);
+//    ui->treeView->setHeaderLabels({
+//        tr("Name"), tr("Created"), tr("Modified"), tr("Size"), tr("Type")
+//    });
 
     connect(&mManager, &QNetworkAccessManager::finished,
             this, &MainWindow::replyFinished);
@@ -30,28 +33,12 @@ void MainWindow::replyFinished(QNetworkReply *reply)
         return;
 
     const QByteArray data(reply->readAll());
-    const FileListDto dto(FileListDto::fromCbor(data));
+    mModel->setFileList(FileListDto::fromCbor(data));
 
     qDebug() << "REPLY:" << data;
 
-    ui->userLabel->setText(dto.user());
-    ui->directoryLabel->setText(dto.directory());
-
-    const QString format(QStringLiteral("yyyy-MM-dd HH:mm"));
-
-    QList<QTreeWidgetItem *> items;
-    const auto &files = dto.files();
-    for (const auto &file : files) {
-        const QStringList values = {
-            file.name, file.created.toString(format),
-            file.modified.toString(format), QString::number(file.size),
-            (file.isDirectory ? QStringLiteral("Dir") : QStringLiteral("File"))
-        };
-        items.append(new QTreeWidgetItem(static_cast<QTreeWidget*>(nullptr),
-                                         values, 0));
-    }
-
-    ui->treeWidget->insertTopLevelItems(0, items);
+    ui->userLabel->setText(mModel->fileList().user());
+    ui->directoryLabel->setText(mModel->fileList().directory());
 }
 
 void MainWindow::on_connectPushButton_clicked()
