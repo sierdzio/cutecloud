@@ -1,13 +1,17 @@
 
+include(../milo/mlog/mlog.pri)
+include(../milo/mconfig/mconfig.pri)
+include(../api/api.pri)
+
 TEMPLATE = app
 
 QT = core gui network widgets
 
-HEADERS = mainwindow.h models/filelistmodel.h
+HEADERS += src/mainwindow.h src/models/filelistmodel.h
 
-SOURCES = main.cpp mainwindow.cpp models/filelistmodel.cpp
+SOURCES += src/main.cpp src/mainwindow.cpp src/models/filelistmodel.cpp
 
-FORMS = mainwindow.ui
+FORMS += src/mainwindow.ui
 
 CONFIG += ltcg c++14
 
