@@ -87,4 +87,3 @@ target_link_libraries(clienttest
   Qt5::Network
   Qt5::Widgets
 )
-# Cutelyst::StaticSimple
