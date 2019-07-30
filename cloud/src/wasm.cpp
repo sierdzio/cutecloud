@@ -12,6 +12,9 @@ Wasm::~Wasm()
 
 void Wasm::index(Context *c)
 {
-    c->response()->body() = "Matched Controller::Wasm in Wasm.";
+    // TODO: remove SimpleStatic, use this controller to serve the WASM files!
+
+    //c->response()->body() = "Matched Controller::Wasm in Wasm.";
+    c->setStash("template", "wasm/client.html");
 }
 
