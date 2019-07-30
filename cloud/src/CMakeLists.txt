@@ -5,6 +5,7 @@ set(cutecloud_SRCS cutecloud.h cutecloud.cpp
   settings.h settings.cpp
   files.h files.cpp
   api.h api.cpp
+  wasm.h wasm.cpp
 )
 
 set(cutecloud_SRCS
@@ -46,6 +47,7 @@ target_compile_features(cutecloud PRIVATE cxx_std_14)
 target_link_libraries(cutecloud
   Cutelyst::Core
   Cutelyst::View::Grantlee
+  Cutelyst::StaticSimple
   Qt5::Core
   Qt5::Network
 )

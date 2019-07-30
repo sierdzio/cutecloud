@@ -1,1 +1,8 @@
 *.user*
+
+# Compiled WASM client
+cloud/root/wasm/client.html
+cloud/root/wasm/client.js
+cloud/root/wasm/client.wasm
+cloud/root/wasm/qtloader.js
+cloud/root/wasm/qtlogo.svg
