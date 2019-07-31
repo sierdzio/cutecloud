@@ -29,12 +29,14 @@ private slots:
 
 private:
     const QString sep = QStringLiteral("/");
+    const QString filesPrefix = QStringLiteral("files");
     const QString proto = QStringLiteral("?cbor=1");
 
     Ui::MainWindow *ui;
     QPointer<FileListModel> mModel;
 
     QNetworkAccessManager mManager;
+    QStringList mTempFiles;
 };
 
 #endif // MAINWINDOW_H

@@ -47,9 +47,7 @@ target_compile_features(cutecloud PRIVATE cxx_std_14)
 target_link_libraries(cutecloud
   Cutelyst::Core
   Cutelyst::View::Grantlee
-  Cutelyst::StaticSimple
   Qt5::Core
   Qt5::Network
 )
-# Cutelyst::StaticSimple
 

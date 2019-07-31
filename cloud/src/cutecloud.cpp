@@ -6,7 +6,6 @@
 #include "api.h"
 #include "wasm.h"
 
-#include <Cutelyst/Plugins/StaticSimple/staticsimple.h>
 #include <Cutelyst/Plugins/View/Grantlee/grantleeview.h>
 #include <QCoreApplication>
 
@@ -33,9 +32,8 @@ bool cutecloud::init()
     new Api(this);
     new Wasm(this);
 
-    new StaticSimple(this);
     auto view = new GrantleeView(this);
-    view->setIncludePaths({ pathTo("root")/*, pathTo("root/static")*/ });
+    view->setIncludePaths({ pathTo("root") });
     view->setWrapper("wrapper.html");
 
     return true;
