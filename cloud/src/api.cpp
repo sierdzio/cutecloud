@@ -54,5 +54,6 @@ void Api::filelist(Context *c)
         c->setStash(Tags::endpoint, dto.name());
         c->setStash(Tags::description, dto.description());
         c->setStash(Tags::parameters, "nothing yet...");
+        c->setStash(Tags::cloudAppVersion, CloudAppVersion);
     }
 }

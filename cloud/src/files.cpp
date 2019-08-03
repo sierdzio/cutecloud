@@ -55,6 +55,7 @@ void Files::index(Context *c)
             c->setStash(Tags::title, tr("Files: %1").arg(path));
             c->setStash(Tags::path, path);
             c->setStash(Tags::files, files);
+            c->setStash(Tags::cloudAppVersion, CloudAppVersion);
             return;
         }
 

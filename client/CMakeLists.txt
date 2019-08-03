@@ -51,6 +51,13 @@ set(client_SRCS
   ${OTHER_FILES}
 )
 
+# TODO:
+# - add AppImage builds
+# - allow to bake server config into the binary (so that it cannot be changed
+#   after deployment
+# - add option to obfuscate the code
+# - add option to bake all templates and static files into the binary (RCC)
+
 # Create the application
 add_executable(clienttest ${client_SRCS}
   $<TARGET_OBJECTS:mlog>

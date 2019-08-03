@@ -5,6 +5,9 @@
 
 #include "mconfig.h"
 
+/*!
+ *
+ */
 class CloudConfig : public MConfig
 {
 public:
