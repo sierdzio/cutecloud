@@ -74,11 +74,12 @@ void MainWindow::entryDoubleClicked(const QModelIndex &index)
     if (info.isDirectory) {
         qDebug() << "Directory double clicked - open!";
         mManager.get(QNetworkRequest(
-            QUrl(ui->serverLineEdit->text() + sep + mModel->fileList().path()
+            QUrl(ui->serverLineEdit->text() + sep + mModel->fileList().apiPath()
+                 + sep + mModel->fileList().directory()
                  + sep + info.name + proto)));
     } else {
         const QString path(ui->serverLineEdit->text() + sep
-                           + filesPrefix + sep + mModel->fileList().path() + sep
+                           + filesPrefix + sep + mModel->fileList().apiPath() + sep
                            + info.name);
         qDebug() << "File double clicked - download and open!" << path;
         mManager.get(QNetworkRequest(QUrl(path)));
@@ -88,7 +89,7 @@ void MainWindow::entryDoubleClicked(const QModelIndex &index)
 void MainWindow::on_connectPushButton_clicked()
 {
     mManager.get(QNetworkRequest(
-        QUrl(ui->serverLineEdit->text() + sep + mModel->fileList().path()
+        QUrl(ui->serverLineEdit->text() + sep + mModel->fileList().apiPath()
              + proto)));
 }
 
@@ -96,7 +97,7 @@ void MainWindow::on_backPushButton_clicked()
 {
     const QStringList path(ui->directoryLabel->text().split(sep));
     const QString backPath(path.mid(0, path.length() - 1).join(sep));
-    const QString url(ui->serverLineEdit->text() + sep + mModel->fileList().path()
+    const QString url(ui->serverLineEdit->text() + sep + mModel->fileList().apiPath()
                       + sep + backPath + proto);
     qDebug() << "Back URL" << url << "initial path:" << path;
     mManager.get(QNetworkRequest(QUrl(url)));

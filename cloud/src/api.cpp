@@ -42,7 +42,7 @@ void Api::filelist(Context *c)
 
     const FileListDto dto(user, dirPath, files);
 
-    qDebug() << "Params:" << params;
+    qDebug() << "Params:" << params << "path:" << dirPath;
 
     if (params.contains(Tags::json)) {
         c->response()->body() = dto.toJson().toJson();

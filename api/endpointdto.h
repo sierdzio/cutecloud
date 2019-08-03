@@ -16,7 +16,7 @@ public:
 
     // Static? So that they can be shown in API summary page?
     virtual QString name() const;
-    virtual QString path() const;
+    virtual QString apiPath() const;
     virtual QString description() const;
 
     virtual QJsonDocument toJson() const;

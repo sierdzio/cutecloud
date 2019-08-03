@@ -60,7 +60,7 @@ public:
     static QByteArray fieldString(const FileListDto::Field field);
 
     QString name() const final;
-    QString path() const final;
+    QString apiPath() const final;
     QString description() const final;
 
     static FileListDto fromJson(const QByteArray &data);

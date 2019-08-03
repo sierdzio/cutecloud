@@ -9,7 +9,7 @@ QString EndpointDto::name() const
     return QStringLiteral("Endpoint");
 }
 
-QString EndpointDto::path() const
+QString EndpointDto::apiPath() const
 {
     return QStringLiteral("api");
 }
