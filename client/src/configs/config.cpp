@@ -7,9 +7,12 @@ Config::Config() : MConfig(Tags::clientConfig)
     CONFIG_VALUE(storagePath, QMetaType::QString);
     CONFIG_VALUE(serverUrl, QMetaType::QString);
     CONFIG_VALUE(userId, QMetaType::QString);
+
+    load();
 }
 
 Config::~Config()
 {
-    save();
+    if (dirty)
+        save();
 }

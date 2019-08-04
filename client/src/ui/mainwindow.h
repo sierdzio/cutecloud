@@ -12,6 +12,15 @@ class MainWindow;
 class QNetworkReply;
 class FileListModel;
 
+// TODO: move to global header
+#if !defined(CHECK)
+//#if defined(DEBUG_BUILD)
+#define CHECK(condition) if (!condition) qFatal("Check failed!")
+//#else
+//#define CHECK(condition) condition
+//#endif
+#endif
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,9 +32,13 @@ public:
 private slots:
     void replyFinished(QNetworkReply *reply);
     void entryDoubleClicked(const QModelIndex &index);
-    void on_connectPushButton_clicked();
+    void configChanged(const bool configChanged);
 
+    // TODO: do not use connectSlotsByName()!
+    void on_connectPushButton_clicked();
     void on_backPushButton_clicked();
+    void on_actionConfigure_Cutecloud_client_triggered();
+    void on_actionAbout_Qt_triggered();
 
 private:
     const QString sep = QStringLiteral("/");
