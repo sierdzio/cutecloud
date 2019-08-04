@@ -7,11 +7,15 @@ TEMPLATE = app
 
 QT = core gui network widgets
 
-HEADERS += src/mainwindow.h src/models/filelistmodel.h
+INCLUDEPATH += src
 
-SOURCES += src/main.cpp src/mainwindow.cpp src/models/filelistmodel.cpp
+HEADERS += src/ui/mainwindow.h src/models/filelistmodel.h \
+    src/ui/settingsdialog.h src/utils/tags.h src/configs/config.h
 
-FORMS += src/mainwindow.ui
+SOURCES += src/main.cpp src/ui/mainwindow.cpp src/models/filelistmodel.cpp \
+    src/ui/settingsdialog.cpp src/configs/config.cpp
+
+FORMS += src/ui/mainwindow.ui src/ui/settingsdialog.ui
 
 CONFIG += ltcg c++14
 
