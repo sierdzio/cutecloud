@@ -37,12 +37,16 @@ set(OTHER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 
 set(client_SRCS
   src/main.cpp
-  src/mainwindow.h src/mainwindow.cpp
+  src/ui/mainwindow.h src/ui/mainwindow.cpp
+  src/ui/settingsdialog.h src/ui/settingsdialog.cpp
   src/models/filelistmodel.h src/models/filelistmodel.cpp
+  src/configs/config.h src/configs/config.cpp
+  src/utils/tags.h
 )
 
 set(client_UIS
-  src/mainwindow.ui
+  src/ui/mainwindow.ui
+  src/ui/settingsdialog.ui
 )
 
 set(client_SRCS
@@ -50,13 +54,6 @@ set(client_SRCS
   ${client_UIS}
   ${OTHER_FILES}
 )
-
-# TODO:
-# - add AppImage builds
-# - allow to bake server config into the binary (so that it cannot be changed
-#   after deployment
-# - add option to obfuscate the code
-# - add option to bake all templates and static files into the binary (RCC)
 
 # Create the application
 add_executable(clienttest ${client_SRCS}
@@ -69,6 +66,7 @@ target_include_directories(clienttest PUBLIC
   $<TARGET_PROPERTY:mlog,INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:mconfig,INCLUDE_DIRECTORIES>
   $<TARGET_PROPERTY:api,INCLUDE_DIRECTORIES>
+  src
 )
 
 # Mark all warnings as errors

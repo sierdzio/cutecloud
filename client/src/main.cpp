@@ -3,7 +3,7 @@
 
 #include "mlog.h"
 
-#include "mainwindow.h"
+#include "ui/mainwindow.h"
 
 Q_LOGGING_CATEGORY(coreMain, "core.main")
 

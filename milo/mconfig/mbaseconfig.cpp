@@ -130,7 +130,7 @@ void MBaseConfig::save(const QString &fileName, const QSettings::Format &format)
     auto saveTo = [this](QSettings &settings) {
         settings.beginGroup(m_groupName);
         const auto &values = valueNames();
-        for (auto key : values) {
+        for (const auto &key : values) {
             auto val = value(key);
 #ifdef MCRYPTO_LIB
             if (m_passphrase.size()) {

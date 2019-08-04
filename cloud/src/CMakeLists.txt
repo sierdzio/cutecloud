@@ -27,6 +27,14 @@ target_include_directories(cutecloud PUBLIC
   $<TARGET_PROPERTY:api,INCLUDE_DIRECTORIES>
 )
 
+
+# TODO:
+# - add AppImage builds
+# - allow to bake server config into the binary (so that it cannot be changed
+#   after deployment
+# - add option to obfuscate the code
+# - add option to bake all templates and static files into the binary (RCC)
+
 # Mark all warnings as errors
 target_compile_options(cutecloud PRIVATE -Werror -fPIC)
 
