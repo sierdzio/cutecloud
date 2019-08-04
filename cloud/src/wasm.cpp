@@ -17,7 +17,12 @@ Wasm::~Wasm()
 
 void Wasm::index(Context *c)
 {
-    serveFile(c, QStringLiteral("client.html"));
+    const QStringList args(c->request()->arguments());
+
+    if (args.isEmpty())
+        serveFile(c, QStringLiteral("client.html"));
+    else
+        serveFile(c, args.at(0));
 }
 
 void Wasm::serveFile(Context *c, const QString &fileName)
@@ -30,6 +35,7 @@ void Wasm::serveFile(Context *c, const QString &fileName)
         const QDateTime currentDateTime = fileInfo.lastModified();
         if (currentDateTime == c->req()->headers().ifModifiedSinceDateTime()) {
             res->setStatus(Response::NotModified);
+            qDebug() << "Not modified!";
             return;
         }
 

@@ -13,7 +13,7 @@ public:
     explicit Wasm(QObject *parent = nullptr);
     ~Wasm();
 
-    C_ATTR(index, :Local :Args)
+    C_ATTR(index, :Path :Args)
     void index(Context *c);
 
 private:
