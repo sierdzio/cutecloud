@@ -1,34 +1,35 @@
 #include "fileindex.h"
 
 #include <QCryptographicHash>
+#include <QDirIterator>
 #include <QDateTime>
 #include <QFileInfo>
+#include <QDebug>
+#include <QFile>
 #include <QDir>
-#include <QDirIterator>
 
-//FileIndex::FileIndex(const QString &path) : mPath(path), mHash(index(path))
-//{
-//}
+QString FileIndex::sep = QStringLiteral("/");
 
-//QString FileIndex::path() const
-//{
-//    return mPath;
-//}
-
-//QByteArray FileIndex::hash() const
-//{
-//    return mHash;
-//}
-
-QByteArray FileIndex::index(const QString &path, const QString &workingDir)
+FileIndex FileIndex::file(const QString &path, const QString &workingDir,
+                          const Mode indexingMode)
 {
-    // TODO: use the working dir!
-    Q_UNUSED(workingDir);
+    FileIndex result;
+
+    if (workingDir.endsWith(QStringLiteral("/")) == false) {
+        qWarning() << "ERROR: working dir does not end with a forward slash";
+        return result;
+    }
 
     const QByteArray sep = QByteArrayLiteral(";");
-    const QFileInfo info(path);
+    const QFileInfo info(workingDir + path);
 
-    if (info.exists()) {
+    result.mPath = path;
+
+    if (info.exists() == false) {
+        return result;
+    }
+
+    if (indexingMode & MetaDataIndex) {
         // TODO: also calculate hash from permissions, symlink, hidden, etc.
         const QByteArray data(
             info.fileName().toUtf8() + sep
@@ -37,23 +38,66 @@ QByteArray FileIndex::index(const QString &path, const QString &workingDir)
             + info.lastModified().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
             + info.metadataChangeTime().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
             );
-        return QCryptographicHash::hash(data, QCryptographicHash::RealSha3_512);
+
+        result.mMetaDataHash = QCryptographicHash::hash(
+            data, QCryptographicHash::RealSha3_512);
     }
 
-    return QByteArray();
-}
+    if (indexingMode & FileContentsIndex) {
+        QFile file(info.filePath());
 
-FileList FileIndex::directoryIndex(const QString &path)
-{
-    FileList result;
-
-    const int toCut = path.length() + (path.endsWith(QStringLiteral("/"))? 1 : 0);
-    QDirIterator it(path, QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        const QString filePath(it.next().mid(toCut));
-        result.insert(filePath, index(filePath));
-
+        if (file.open(QFile::ReadOnly)) {
+            QCryptographicHash hash(QCryptographicHash::RealSha3_512);
+            hash.addData(&file);
+            result.mDataHash = hash.result();
+        }
     }
 
     return result;
+}
+
+FileList FileIndex::directory(const QString &path, const Mode indexingMode)
+{
+    FileList result;
+
+    const QString workingDir(path + (path.endsWith(sep)? QString() : sep));
+    const int toCut = workingDir.length();
+
+    QDirIterator it(path, QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        FileIndex index = file(it.next().mid(toCut), workingDir, indexingMode);
+        result.insert(index.path(), index);
+    }
+
+    return result;
+}
+
+QString FileIndex::toString(const FileList &list)
+{
+    QString result;
+    for (const auto &index : list) {
+        result.append(index.toString() + QStringLiteral("\n"));
+    }
+    return result;
+}
+
+QString FileIndex::toString() const
+{
+    return QString(mPath + QStringLiteral(": ") + mMetaDataHash
+                   + QStringLiteral(": ") + mDataHash);
+}
+
+QString FileIndex::path() const
+{
+    return mPath;
+}
+
+QByteArray FileIndex::metaDataHash() const
+{
+    return mMetaDataHash;
+}
+
+QByteArray FileIndex::dataHash() const
+{
+    return mDataHash;
 }
