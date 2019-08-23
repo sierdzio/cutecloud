@@ -14,5 +14,6 @@ add_subdirectory(milo/mlog)
 add_subdirectory(api)
 
 # Main apps and libs:
+add_subdirectory(indexer)
 add_subdirectory(cloud)
 add_subdirectory(client)

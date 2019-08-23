@@ -30,7 +30,7 @@ FileIndex FileIndex::file(const QString &path, const QString &workingDir,
     }
 
     if (indexingMode & MetaDataIndex) {
-        // TODO: also calculate hash from permissions, symlink, hidden, etc.
+        // TODO: also calculate hash from permissions, symlink, hidden, etc.?
         const QByteArray data(
             info.fileName().toUtf8() + sep
             + QByteArray::number(info.size()) + sep
@@ -63,9 +63,13 @@ FileList FileIndex::directory(const QString &path, const Mode indexingMode)
     const QString workingDir(path + (path.endsWith(sep)? QString() : sep));
     const int toCut = workingDir.length();
 
-    QDirIterator it(path, QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    QDirIterator it(path, QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files
+                        | QDir::Hidden,
+                    QDirIterator::Subdirectories);
     while (it.hasNext()) {
-        FileIndex index = file(it.next().mid(toCut), workingDir, indexingMode);
+        const QString current(it.next().mid(toCut));
+        //qDebug() << "Indexing:" << current;
+        FileIndex index = file(current, workingDir, indexingMode);
         result.insert(index.path(), index);
     }
 
@@ -83,8 +87,8 @@ QString FileIndex::toString(const FileList &list)
 
 QString FileIndex::toString() const
 {
-    return QString(mPath + QStringLiteral(": ") + mMetaDataHash
-                   + QStringLiteral(": ") + mDataHash);
+    return QString(mPath + QStringLiteral(": ") + mMetaDataHash.toHex()
+                   + QStringLiteral(": ") + mDataHash.toHex());
 }
 
 QString FileIndex::path() const
