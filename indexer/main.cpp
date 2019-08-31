@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     //                 << "\nBuild date:" << BuildDate;
 
     const QLatin1String target("path");
+    const QLatin1String summary("output");
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Test helper");
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]) {
     parser.addVersionOption();
     const auto ctx = "main";
     parser.addPositionalArgument(target, cTr(ctx, "Directory to index"));
+    parser.addPositionalArgument(summary, cTr(ctx, "Path to save output to (optional)"));
     parser.process(app);
 
     const QStringList args = parser.positionalArguments();
@@ -44,6 +46,11 @@ int main(int argc, char *argv[]) {
     }
 
     const QString path(args.at(0));
+    QString output;
+
+    if (args.size() > 1) {
+        output = args.at(1);
+    }
 
     {
         qInfo() << "Checking meta data only" << path;
@@ -52,7 +59,13 @@ int main(int argc, char *argv[]) {
         const auto indexes = FileIndex::directory(
             path, FileIndex::Mode::MetaDataIndex);
         qInfo() << "Meta data check took" << timer.elapsed() << "milliseconds";
-        qInfo().noquote() << FileIndex::toString(indexes);
+        const QString out(FileIndex::toString(indexes));
+        qInfo().noquote() << out;
+
+        QFile outputFile(output);
+        if (outputFile.open(QFile::WriteOnly | QFile::Text)) {
+            outputFile.write(out.toUtf8());
+        }
     }
 
     {
