@@ -14,6 +14,17 @@ add_subdirectory(milo/mlog)
 add_subdirectory(api)
 
 # Main apps and libs:
-add_subdirectory(indexer)
-add_subdirectory(cloud)
-add_subdirectory(client)
+option (build-indexer "Build indexer project (just for testing the file indexer)" OFF)
+if (build-indexer)
+    add_subdirectory(indexer)
+endif (build-indexer)
+
+option (build-cloud "Build cloud project (server-side)" ON)
+if (build-cloud)
+    add_subdirectory(cloud)
+endif (build-cloud)
+
+option (build-client "Build client project (desktop / mobile / WebAssembly)" ON)
+if (build-client)
+    add_subdirectory(client)
+endif (build-client)
