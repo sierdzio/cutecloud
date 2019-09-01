@@ -60,11 +60,12 @@ int main(int argc, char *argv[]) {
             path, FileIndex::Mode::MetaDataIndex);
         qInfo() << "Meta data check took" << timer.elapsed() << "milliseconds";
         const QString out(FileIndex::toString(indexes));
-        qInfo().noquote() << out;
+        //qInfo().noquote() << out;
 
         QFile outputFile(output);
         if (outputFile.open(QFile::WriteOnly | QFile::Text)) {
             outputFile.write(out.toUtf8());
+            outputFile.write("\n\n\n");
         }
     }
 
@@ -76,7 +77,12 @@ int main(int argc, char *argv[]) {
             path, FileIndex::Mode::FileContentsIndex);
         qInfo() << "File contents check took" << timer.elapsed()
                 << "milliseconds";
-        qInfo().noquote() << FileIndex::toString(indexes);
+        const QString out(FileIndex::toString(indexes));
+        //qInfo().noquote() << out;
+        QFile outputFile(output);
+        if (outputFile.open(QFile::WriteOnly | QFile::Text)) {
+            outputFile.write(out.toUtf8());
+        }
     }
 
     qInfo() << "Done, bye!";
