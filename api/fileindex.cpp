@@ -36,7 +36,7 @@ FileIndex FileIndex::file(const QString &path, const QString &workingDir,
             + QByteArray::number(info.size()) + sep
             + info.birthTime().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
             + info.lastModified().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
-            + info.metadataChangeTime().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
+//            + info.metadataChangeTime().toUTC().toString(Qt::DateFormat::ISODate).toLatin1() + sep
             );
 
         result.mMetaDataHash = QCryptographicHash::hash(
