@@ -31,6 +31,11 @@ QByteArray FileInfo::fieldString(const FileInfo::Field field)
 }
 
 // FileInfoList
+FileInfoList::FileInfoList()
+{
+    // MSVC needs it :-(
+}
+
 FileInfoList::FileInfoList(const QFileInfoList &list)
 {
     for (const auto &info : list) {

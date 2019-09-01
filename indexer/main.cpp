@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
         const QString out(FileIndex::toString(indexes));
         //qInfo().noquote() << out;
         QFile outputFile(output);
-        if (outputFile.open(QFile::WriteOnly | QFile::Text)) {
+        if (outputFile.open(QFile::WriteOnly | QFile::Text | QFile::Append)) {
             outputFile.write(out.toUtf8());
         }
     }

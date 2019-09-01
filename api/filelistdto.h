@@ -32,6 +32,7 @@ public:
 class FileInfoList : public QVector<FileInfo>
 {
 public:
+    FileInfoList();
     FileInfoList(const QFileInfoList &list);
 
     using QVector<FileInfo>::QVector;

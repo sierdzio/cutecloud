@@ -59,7 +59,13 @@ target_include_directories(indexertest PUBLIC
 )
 
 # Mark all warnings as errors
-target_compile_options(indexertest PRIVATE -Werror -fPIC)
+if(WIN32)
+  if(MSVC)
+    #target_compile_options(indexertest PRIVATE -Werror -fPIC)
+  endif()
+else()
+  target_compile_options(indexertest PRIVATE -Werror -fPIC)
+endif()
 
 # Defines
 target_compile_definitions(indexertest PRIVATE QT_USE_QSTRINGBUILDER)
