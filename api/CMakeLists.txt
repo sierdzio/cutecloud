@@ -44,10 +44,10 @@ target_include_directories(api
 # Mark all warnings as errors
 if(WIN32)
   if(MSVC)
-    #target_compile_options(indexertest PRIVATE -Werror -fPIC)
+    #target_compile_options(api PRIVATE -Werror -fPIC)
   endif()
 else()
-  target_compile_options(indexertest PRIVATE -Werror -fPIC)
+  target_compile_options(api PRIVATE -Werror -fPIC)
 endif()
 
 # Enable LTCG (link time optimization)
