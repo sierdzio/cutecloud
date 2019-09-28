@@ -16,8 +16,13 @@ class FileIndex
 {
 public:
     enum Mode {
-        MetaDataIndex = 0x0001,
-        FileContentsIndex = 0x0002,
+        //! Won't index anything. The only thing saved is the file path
+        NoIndex = 0x0001,
+        //! Index only file meta data
+        MetaDataIndex = 0x0002,
+        //! Index only file data (using SHA3-512 algorithm)
+        FileContentsIndex = 0x0004,
+        //! Index meta data and file data
         FullIndex = MetaDataIndex | FileContentsIndex
     };
 

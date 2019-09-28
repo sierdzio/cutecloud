@@ -74,7 +74,7 @@ QString FileListDto::name() const
 
 QString FileListDto::apiPath() const
 {
-    return EndpointDto::apiPath() + QStringLiteral("/filelist");
+    return EndpointDto::apiPath() + QLatin1String("/filelist");
 }
 
 QString FileListDto::description() const

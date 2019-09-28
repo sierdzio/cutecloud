@@ -29,7 +29,9 @@ set(CMAKE_AUTORCC ON)
 set(SOURCES fileindex.h fileindex.cpp
     apicore.h apicore.cpp
     endpointdto.h endpointdto.cpp
-    filelistdto.h filelistdto.cpp)
+    filelistdto.h filelistdto.cpp
+    fileindexdto.h fileindexdto.cpp
+    )
 
 set(OTHER_FILES README.md)
 
