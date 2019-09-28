@@ -1,5 +1,8 @@
 #include "fileindexdto.h"
 
+//#include <QJsonObject>
+#include <QCborArray>
+
 FileIndexDto::FileIndexDto()
 {
 
@@ -68,19 +71,18 @@ FileIndexDto FileIndexDto::fromCbor(const QByteArray &data)
 QCborMap FileIndexDto::toCbor() const
 {
     QCborMap result;
-//    result.insert(Field::User, mUser);
-//    result.insert(Field::Directory, mDirectory);
+    result.insert(Field::User, mUser);
+    result.insert(Field::Directory, mDirectory);
 
-//    QCborArray files;
-//    for (const auto &info : qAsConst(mFiles)) {
-//        QCborMap file;
-//        file.insert(FileInfo::Name, info.name);
-//        file.insert(FileInfo::Created, QCborValue(info.created));
-//        file.insert(FileInfo::Modified, QCborValue(info.modified));
-//        file.insert(FileInfo::Size, info.size);
-//        file.insert(FileInfo::IsDirectory, info.isDirectory);
-//        files.append(file);
-//    }
-//    result.insert(Field::Files, files);
+    QCborArray indexes;
+    for (auto i = mIndexes.constBegin(); i != mIndexes.constEnd(); ++i) {
+        QCborMap idx;
+        const auto index = (*i);
+        idx.insert(FileIndex::Path, index.path());
+        idx.insert(FileIndex::MetaDataHash, index.metaDataHash());
+        idx.insert(FileIndex::DataHash, index.dataHash());
+        indexes.append(idx);
+    }
+    result.insert(Field::Indexes, indexes);
     return result;
 }

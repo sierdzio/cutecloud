@@ -26,6 +26,12 @@ public:
         FullIndex = MetaDataIndex | FileContentsIndex
     };
 
+    enum Field {
+        Path,
+        MetaDataHash,
+        DataHash
+    };
+
     /*!
      * Returns lightweight hash for a single file (or directory **descriptor**)
      * found at \a path.
