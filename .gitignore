@@ -1,5 +1,7 @@
 *.user*
 
+build/
+
 # Compiled WASM client
 cloud/root/wasm/client.html
 cloud/root/wasm/client.js
