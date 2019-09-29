@@ -7,7 +7,7 @@
 
 class FileIndex;
 
-using FileList = QHash<QString, FileIndex>;
+using FileIndexList = QHash<QString, FileIndex>;
 
 /*!
  * Indexes files in given directory using a lightweight metadata-only hash.
@@ -42,14 +42,14 @@ public:
 
     /*!
      * *Recursively* generates index() for all files and directories in
-     * \a path and returns a FileList object. The paths in FileList will
-     * not include \a path (in other words, \a path is considered "working
+     * \a path and returns a FileIndexList object. The paths in FileIndexList
+     * will not include \a path (in other words, \a path is considered "working
      * directory").
      */
-    static FileList directory(const QString &path,
-                              const Mode indexingMode = MetaDataIndex);
+    static FileIndexList directory(const QString &path,
+                                   const Mode indexingMode = MetaDataIndex);
 
-    static QString toString(const FileList &list);
+    static QString toString(const FileIndexList &list);
 
     QString toString() const;
 

@@ -6,6 +6,7 @@
 // TODO: use api/ dir here
 #include "apicore.h"
 #include "filelistdto.h"
+#include "fileindexdto.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -41,6 +42,33 @@ void Api::filelist(Context *c)
                                                 QDir::SortFlag::DirsFirst));
 
     const FileListDto dto(user, dirPath, files);
+
+    qDebug() << "Params:" << params << "path:" << dirPath;
+
+    if (params.contains(Tags::json)) {
+        c->response()->body() = dto.toJson().toJson();
+    } else if (params.contains(Tags::cbor)) {
+        c->response()->body() = dto.toCbor().toCborValue().toCbor();
+    } else {
+        c->setStash("template", "api/endpoint.html");
+        c->setStash(Tags::title, dto.name());
+        c->setStash(Tags::endpoint, dto.name());
+        c->setStash(Tags::description, dto.description());
+        c->setStash(Tags::parameters, "nothing yet...");
+        c->setStash(Tags::cloudAppVersion, CloudAppVersion);
+    }
+}
+
+void Api::fileindex(Context *c)
+{
+    const auto &params = c->request()->queryParams();
+    const QString &user("default");
+    // We skip first arg because it is endpoint name
+    const auto dirPath(c->request()->arguments().mid(1).join(sep));
+    const CloudConfig config;
+    const QDir dir(config.storagePath + sep + dirPath);
+
+    const FileIndexDto dto(user, dirPath);
 
     qDebug() << "Params:" << params << "path:" << dirPath;
 

@@ -19,6 +19,9 @@ public:
     C_ATTR(filelist, :Path :Args)
     void filelist(Context *c);
 
+    C_ATTR(filelist, :Path :Args)
+    void fileindex(Context *c);
+
 private:
     const QLatin1String sep = QLatin1String("/");
 };

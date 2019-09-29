@@ -17,6 +17,8 @@ public:
     }; Q_ENUM(Field)
 
     FileIndexDto();
+    FileIndexDto(const QString &user, const QString &directory);
+    virtual ~FileIndexDto();
 
     QString name() const final;
     QString apiPath() const final;
@@ -31,7 +33,7 @@ public:
 private:
     QString mUser;
     QString mDirectory;
-    FileList mIndexes;
+    FileIndexList mIndexes;
 };
 
 #endif // FILEINDEXDTO_H

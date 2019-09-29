@@ -6,7 +6,8 @@
 
 const QStringList ApiCore::mAllEndpoints = {
     TYPE_NAME(Endpoint),
-    TYPE_NAME(FileList)
+    TYPE_NAME(FileList),
+    TYPE_NAME(FileIndex)
 };
 
 QStringList ApiCore::allEndpoints()

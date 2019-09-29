@@ -56,9 +56,9 @@ FileIndex FileIndex::file(const QString &path, const QString &workingDir,
     return result;
 }
 
-FileList FileIndex::directory(const QString &path, const Mode indexingMode)
+FileIndexList FileIndex::directory(const QString &path, const Mode indexingMode)
 {
-    FileList result;
+    FileIndexList result;
 
     const QString workingDir(path + (path.endsWith(sep)? QString() : sep));
     const int toCut = workingDir.length();
@@ -76,7 +76,7 @@ FileList FileIndex::directory(const QString &path, const Mode indexingMode)
     return result;
 }
 
-QString FileIndex::toString(const FileList &list)
+QString FileIndex::toString(const FileIndexList &list)
 {
     QString result;
     for (const auto &index : list) {

@@ -3,9 +3,19 @@
 //#include <QJsonObject>
 #include <QCborArray>
 
-FileIndexDto::FileIndexDto()
+FileIndexDto::FileIndexDto() : EndpointDto()
 {
+}
 
+FileIndexDto::FileIndexDto(const QString &user, const QString &directory)
+    : EndpointDto(), mUser(user), mDirectory(directory)
+{
+    // Run this once when server starts, then cache the result!
+    mIndexes = FileIndex::directory(directory, FileIndex::Mode::MetaDataIndex);
+}
+
+FileIndexDto::~FileIndexDto()
+{
 }
 
 QString FileIndexDto::name() const
